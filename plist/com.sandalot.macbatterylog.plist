@@ -7,7 +7,7 @@
     <key>ProgramArguments</key>
     <array>
         <string>/usr/bin/php</string>
-        <string>/path/to/batterycheck/macbatterylog.php</string>
+        <string>/path/to/macbatterylog/macbatterylog.php</string>
     </array>
     <key>StartCalendarInterval</key>
     <array>
@@ -29,6 +29,6 @@
         </dict>
     </array>
     <key>StandardOutPath</key>
-    <string>/path/to/batterycheck/data/battery.log</string>
+    <string>/path/to/macbatterylog/data/battery.log</string>
 </dict>
 </plist>
