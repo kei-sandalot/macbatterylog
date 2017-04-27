@@ -8,27 +8,25 @@
 <body>
 
 
-<!-- Example scripts go here -->
-
-
-
-<?php
-  $data = file('./data/battery.log');
-  $point = array();
-  foreach($data as $line)
-  {
-    $a = explode(',', $line);
-    $point[] = '[\'' . trim($a[0]) . '\',' . trim($a[2]) . ']';
-  }
-  $str_point = '[' . implode(',', $point) . ']';
-?>
 
 <div id="chart-battery" style="height:300px; width:500px; margin-bottom: 30px;"></div>
 marker <input type="checkbox" id="switch-marker"/>
 
-<script class="code" type="text/javascript">
+
+
+  <script class="include" type="text/javascript" src="./jqplot/jquery.jqplot.min.js"></script>
+
+  <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.DateAxisRenderer.js"></script>
+  <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.canvasTextRenderer.js"></script>
+  <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.canvasAxisLabelRenderer.js"></script>
+
+
+
+<script type="text/javascript">
 $(document).ready(function() {
-  var point = [<?=$str_point?>];
+  var point = [];
+  var plot = null;
+
   var options = {
     seriesDefaults: {
       showMarker: false,
@@ -46,7 +44,28 @@ $(document).ready(function() {
       }
     },
   }
-  var plot = $.jqplot('chart-battery', point, options);
+
+  var draw_chart = function(chart_data) {
+    point = [chart_data];
+    plot = $.jqplot('chart-battery', point, options);
+  };
+
+  $.ajax({
+    url: './data/battery.log',
+    success: function(data) {
+      var chart_data = [];
+      var row = data.split(/\r\n|\r|\n/);
+      row.forEach(function(val) {
+        var col = val.split(',');
+        chart_data.push([col[0], col[2]]);
+      });
+
+      draw_chart(chart_data);
+    },
+    error: function(a, b, c) {
+      console.log(a, b, c);
+    }
+  });
 
   $('#switch-marker').change(function() {
     if($(this).is(":checked"))
@@ -64,14 +83,6 @@ $(document).ready(function() {
 </script>
 
 
-  <script class="include" type="text/javascript" src="./jqplot/jquery.jqplot.min.js"></script>
-
-  <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.DateAxisRenderer.js"></script>
-  <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.canvasTextRenderer.js"></script>
-  <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.canvasAxisLabelRenderer.js"></script>
 
 </body>
-
-
 </html>
-
