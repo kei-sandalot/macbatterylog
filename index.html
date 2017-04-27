@@ -52,6 +52,7 @@ $(document).ready(function() {
 
   $.ajax({
     url: './data/battery.log',
+    dataType: 'text',
     success: function(data) {
       var chart_data = [];
       var row = data.split(/\r\n|\r|\n/);
