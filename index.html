@@ -21,6 +21,7 @@ marker <input type="checkbox" id="switch-marker"/>
   <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.DateAxisRenderer.js"></script>
   <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.canvasTextRenderer.js"></script>
   <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.canvasAxisLabelRenderer.js"></script>
+  <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.cursor.js"></script>
 
 
 
@@ -36,16 +37,23 @@ $(document).ready(function() {
         smooth: true
       }
     },
-    axes:{
-      xaxis:{
-        renderer: $.jqplot.DateAxisRenderer
+    axes: {
+      xaxis: {
+        renderer: $.jqplot.DateAxisRenderer,
+        tickOptions:{
+          formatString: '%m/%d'
+        },
       },
       yaxis: {
         min: 0,
         max: 8000,
       }
     },
-  }
+    cursor: {
+        show: true, 
+        zoom: true
+    }
+  };
 
   var draw_chart = function(chart_data) {
     point = [chart_data];
@@ -79,8 +87,7 @@ $(document).ready(function() {
     {
       options.seriesDefaults.showMarker = false;
     }
-    $('#chart-battery').empty();
-    plot = $.jqplot('chart-battery', point, options);
+    plot.replot(options);
   });
 });
 </script>
