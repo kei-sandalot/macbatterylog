@@ -3,9 +3,8 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8"/>
-  <title>macbatterylog - by sand a lot</title>
-  <link class="include" rel="stylesheet" type="text/css" href="./jqplot/jquery.jqplot.min.css" />
-  <script class="include" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <title>macbatterylog by sand a lot</title>
+  <link rel="stylesheet" type="text/css" href="./jqplot/jquery.jqplot.min.css" />
 </head>
 <body>
 
@@ -16,16 +15,16 @@ marker <input type="checkbox" id="switch-marker"/>
 
 
 
-  <script class="include" type="text/javascript" src="./jqplot/jquery.jqplot.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="./jqplot/jquery.jqplot.min.js"></script>
+<script src="./jqplot/plugins/jqplot.DateAxisRenderer.js"></script>
+<script src="./jqplot/plugins/jqplot.canvasTextRenderer.js"></script>
+<script src="./jqplot/plugins/jqplot.canvasAxisLabelRenderer.js"></script>
+<script src="./jqplot/plugins/jqplot.cursor.js"></script>
 
-  <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.DateAxisRenderer.js"></script>
-  <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.canvasTextRenderer.js"></script>
-  <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.canvasAxisLabelRenderer.js"></script>
-  <script class="include" type="text/javascript" src="./jqplot/plugins/jqplot.cursor.js"></script>
 
 
-
-<script type="text/javascript">
+<script>
 $(document).ready(function() {
   var point = [];
   var plot = null;
@@ -61,7 +60,7 @@ $(document).ready(function() {
   };
 
   $.ajax({
-    url: './data/battery.log',
+    url: 'data/battery.log',
     dataType: 'text',
     success: function(data) {
       var chart_data = [];
