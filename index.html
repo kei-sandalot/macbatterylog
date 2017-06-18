@@ -54,8 +54,8 @@ $(document).ready(function() {
     }
   };
 
-  var draw_chart = function(chart_data) {
-    point = [chart_data];
+  var draw_chart = function(chart_data, max_data) {
+    point = [chart_data, max_data];
     plot = $.jqplot('chart-battery', point, options);
   };
 
@@ -64,13 +64,15 @@ $(document).ready(function() {
     dataType: 'text',
     success: function(data) {
       var chart_data = [];
+      var max_data = [];
       var row = data.split(/\r\n|\r|\n/);
       row.forEach(function(val) {
         var col = val.split(',');
+        max_data.push([col[0], col[1]]);
         chart_data.push([col[0], col[2]]);
       });
 
-      draw_chart(chart_data);
+      draw_chart(chart_data, max_data);
     },
     error: function(a, b, c) {
       console.log(a, b, c);
